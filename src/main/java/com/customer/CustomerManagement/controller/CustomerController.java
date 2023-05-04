@@ -1,6 +1,7 @@
 package com.customer.CustomerManagement.controller;
 
 import com.customer.CustomerManagement.dto.CustomerDTO;
+import com.customer.CustomerManagement.dto.request.CustomerUpdateDTO;
 import com.customer.CustomerManagement.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -19,5 +20,13 @@ public class CustomerController
         customerService.saveCustomer(customerDTO);
         System.out.println("Customer :"+customerDTO);
         return "Saved";
+    }
+
+    @PutMapping("/update")
+    public String updateCustomer(@RequestBody CustomerUpdateDTO customerUpdateDTO)
+    {
+        String message = customerService.updateCustomer(customerUpdateDTO);
+        System.out.println("Customer :"+customerUpdateDTO);
+        return message;
     }
 }

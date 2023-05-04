@@ -1,6 +1,7 @@
 package com.customer.CustomerManagement.service.impl;
 
 import com.customer.CustomerManagement.dto.CustomerDTO;
+import com.customer.CustomerManagement.dto.request.CustomerUpdateDTO;
 import com.customer.CustomerManagement.entity.Customer;
 import com.customer.CustomerManagement.repo.CustomerRepo;
 import com.customer.CustomerManagement.service.CustomerService;
@@ -27,5 +28,28 @@ public class CustomerServiceImpl implements CustomerService
         customerRepo.save(customer);
         return "saved";
     }
+
+    @Override
+    public String updateCustomer(CustomerUpdateDTO customerUpdateDTO)
+    {
+        if(customerRepo.existsById(customerUpdateDTO.getCustomerId()))
+        {
+            Customer customer= customerRepo.getReferenceById(customerUpdateDTO.getCustomerId());
+
+            customer.setCustomerName(customerUpdateDTO.getCustomerName());
+            customer.setCustomerAddress(customerUpdateDTO.getCustomerAddress());
+            customer.setCustomerSalary(customerUpdateDTO.getCustomerSalary());
+
+            customerRepo.save(customer);
+
+            return "Updated customer";
+        }
+        else
+        {
+            throw new RuntimeException("No data found for that id");
+        }
+
+    }
+
 
 }
