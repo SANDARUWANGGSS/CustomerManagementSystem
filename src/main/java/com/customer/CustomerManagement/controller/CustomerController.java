@@ -6,6 +6,8 @@ import com.customer.CustomerManagement.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/v1/customer")
 @CrossOrigin("http://localhost:8081/")
@@ -36,6 +38,13 @@ public class CustomerController
         CustomerDTO customerDTO=customerService.getCustomerById(CustomerId);
 
         return customerDTO;
+    }
+
+    @GetMapping("/getAllCustomers")
+    public List<CustomerDTO> getAllCustomers()
+    {
+        List<CustomerDTO> allCustomers = customerService.getAllCustomers();
+        return allCustomers;
     }
 
     @DeleteMapping(value="/delete-customer/{id}")

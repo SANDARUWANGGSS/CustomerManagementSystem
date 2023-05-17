@@ -8,6 +8,9 @@ import com.customer.CustomerManagement.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class CustomerServiceImpl implements CustomerService
 {
@@ -86,6 +89,27 @@ public class CustomerServiceImpl implements CustomerService
             throw new RuntimeException("No customer found for this Id");
         }
 
+    }
+
+    @Override
+    public List<CustomerDTO> getAllCustomers() {
+        List<Customer> getAllCustomers = customerRepo.findAll();
+
+        List<CustomerDTO> customerDTOList = new ArrayList<>();
+
+        for (Customer customer : getAllCustomers)
+        {
+            CustomerDTO customerDTO = new CustomerDTO(
+                    customer.getCustomerId(),
+                    customer.getCustomerName(),
+                    customer.getCustomerAddress(),
+                    customer.getCustomerSalary(),
+                    customer.getNic(),
+                    customer.isActiveStatus()
+            );
+            customerDTOList.add(customerDTO);
+        }
+        return customerDTOList;
     }
 
 
