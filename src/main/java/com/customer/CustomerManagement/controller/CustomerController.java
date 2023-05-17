@@ -38,4 +38,11 @@ public class CustomerController
         return customerDTO;
     }
 
+    @DeleteMapping(value="/delete-customer/{id}")
+    public String deleteCustomer(@PathVariable(value = "id") int CustomerId)
+    {
+        String deleted = customerService.deleteCustomer(CustomerId);
+        return deleted;
+    }
+
 }

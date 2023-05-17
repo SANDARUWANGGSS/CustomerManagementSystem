@@ -74,5 +74,19 @@ public class CustomerServiceImpl implements CustomerService
 
     }
 
+    @Override
+    public String deleteCustomer(int customerId) {
+        if(customerRepo.existsById(customerId))
+        {
+            customerRepo.deleteById(customerId);
+            return "Successfully deleted customer "+customerId;
+        }
+        else
+        {
+            throw new RuntimeException("No customer found for this Id");
+        }
+
+    }
+
 
 }
