@@ -29,4 +29,13 @@ public class CustomerController
         System.out.println("Customer :"+customerUpdateDTO);
         return message;
     }
+
+    @GetMapping(value = "/get-by-id", params = "id")
+    public CustomerDTO getCustomerById(@RequestParam(value = "id") int CustomerId)
+    {
+        CustomerDTO customerDTO=customerService.getCustomerById(CustomerId);
+
+        return customerDTO;
+    }
+
 }

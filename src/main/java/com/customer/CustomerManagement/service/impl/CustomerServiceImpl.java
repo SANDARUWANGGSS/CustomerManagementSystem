@@ -51,5 +51,28 @@ public class CustomerServiceImpl implements CustomerService
 
     }
 
+    @Override
+    public CustomerDTO getCustomerById(int customerId) {
+        if(customerRepo.existsById(customerId))
+        {
+            Customer customer=customerRepo.getReferenceById(customerId);
+
+            CustomerDTO customerDTO=new CustomerDTO(
+                    customer.getCustomerId(),
+                    customer.getCustomerName(),
+                    customer.getCustomerAddress(),
+                    customer.getCustomerSalary(),
+                    customer.getNic(),
+                    customer.isActiveStatus()
+            );
+            return customerDTO;
+        }
+        else
+        {
+            throw new RuntimeException("No customer found for this Id");
+        }
+
+    }
+
 
 }
