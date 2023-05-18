@@ -1,11 +1,17 @@
 package com.customer.CustomerManagement.entity;
 
 import com.customer.CustomerManagement.entity.enums.MeasuringUnitType;
+import lombok.*;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "item")
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@ToString
 public class Item
 {
     @Id
