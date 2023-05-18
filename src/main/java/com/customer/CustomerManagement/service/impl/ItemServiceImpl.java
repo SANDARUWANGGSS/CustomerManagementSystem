@@ -21,27 +21,27 @@ public class ItemServiceImpl implements ItemService
     @Override
     public String saveItem(ItemSaveRequestDTO itemSaveRequestDTO)
     {
-        Item item = new Item(
-                1,
-                itemSaveRequestDTO.getItemName(),
-                itemSaveRequestDTO.getMeasuringUnitType(),
-                itemSaveRequestDTO.getBalanceQty(),
-                itemSaveRequestDTO.getSupplierPrice(),
-                itemSaveRequestDTO.getSellingPrice(),
-                true
-        );
-        itemRepo.save(item);
-        return item.getItemName();
-//        Item item = modelMapper.map(itemSaveRequestDTO,Item.class);
-//        if(itemRepo.existsById(item.getItemId()))
-//        {
-//            itemRepo.save(item);
-//            return item.getItemId()+" Item Saved Successfully";
-//        }
-//        else
-//        {
-//            throw new DuplicateKeyException("Already Added Item");
-//        }
+//        Item item = new Item(
+//                1,
+//                itemSaveRequestDTO.getItemName(),
+//                itemSaveRequestDTO.getMeasuringUnitType(),
+//                itemSaveRequestDTO.getBalanceQty(),
+//                itemSaveRequestDTO.getSupplierPrice(),
+//                itemSaveRequestDTO.getSellingPrice(),
+//                true
+//        );
+//        itemRepo.save(item);
+//        return item.getItemName();
+        Item item = modelMapper.map(itemSaveRequestDTO,Item.class);
+        if(!itemRepo.existsById(item.getItemId()))
+        {
+            itemRepo.save(item);
+            return item.getItemId()+" Item Saved Successfully";
+        }
+        else
+        {
+            throw new DuplicateKeyException("Already Added Item");
+        }
 
     }
 }
