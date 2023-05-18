@@ -1,0 +1,35 @@
+package com.customer.CustomerManagement.entity;
+
+import com.customer.CustomerManagement.entity.enums.MeasuringUnitType;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "item")
+public class Item
+{
+    @Id
+    @Column(name = "item_id", length = 45)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int itemId;
+
+    @Column(name = "item_name", length = 100, nullable = false)
+    private String itemName;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "measure_type",length = 200)
+    private MeasuringUnitType measuringUnitType;
+
+    @Column(name = "balance_qty", length = 100, nullable = false)
+    private String balanceQty;
+
+    @Column(name = "supplier_price", length = 100, nullable = false)
+    private String supplierPrice;
+
+    @Column(name = "selling_price", length = 100, nullable = false)
+    private String sellingPrice;
+
+    @Column(name = "active_status", columnDefinition = "TINYINT default 0")
+    private boolean activeStatus;
+
+}
