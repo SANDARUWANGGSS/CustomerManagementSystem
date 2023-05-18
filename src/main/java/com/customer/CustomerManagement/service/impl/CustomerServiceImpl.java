@@ -112,5 +112,26 @@ public class CustomerServiceImpl implements CustomerService
         return customerDTOList;
     }
 
+    @Override
+    public List<CustomerDTO> getAllCustomersByActiveState(boolean activeState) {
+        List<Customer> getAllCustomers = customerRepo.findAllByActiveStatusEquals(activeState);
+
+        List<CustomerDTO> customerDTOList = new ArrayList<>();
+
+        for (Customer customer : getAllCustomers)
+        {
+            CustomerDTO customerDTO = new CustomerDTO(
+                    customer.getCustomerId(),
+                    customer.getCustomerName(),
+                    customer.getCustomerAddress(),
+                    customer.getCustomerSalary(),
+                    customer.getNic(),
+                    customer.isActiveStatus()
+            );
+            customerDTOList.add(customerDTO);
+        }
+        return customerDTOList;
+    }
+
 
 }
