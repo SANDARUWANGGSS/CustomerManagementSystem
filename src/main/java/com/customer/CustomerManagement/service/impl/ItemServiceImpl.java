@@ -1,13 +1,17 @@
 package com.customer.CustomerManagement.service.impl;
 
 import com.customer.CustomerManagement.dto.request.ItemSaveRequestDTO;
+import com.customer.CustomerManagement.dto.response.ItemGetResponseDTO;
 import com.customer.CustomerManagement.entity.Item;
 import com.customer.CustomerManagement.repo.ItemRepo;
 import com.customer.CustomerManagement.service.ItemService;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ItemServiceImpl implements ItemService
@@ -41,6 +45,24 @@ public class ItemServiceImpl implements ItemService
         else
         {
             throw new DuplicateKeyException("Already Added Item");
+        }
+
+    }
+
+    @Override
+    public List<ItemGetResponseDTO> getItemByNameAndStatus(String itemName)
+    {
+        boolean b = true;
+        List<Item> items = itemRepo.findAllByItemNameEqualsAndActiveStatusEquals(itemName,b);
+        if (items.size()>0)
+        {
+            List<ItemGetResponseDTO> itemGetResponseDTOS = modelMapper.map(items,new TypeToken<List<ItemGetResponseDTO>>(){}
+                    .getType());
+            return itemGetResponseDTOS;
+        }
+        else
+        {
+            throw new RuntimeException("Item is not active");
         }
 
     }

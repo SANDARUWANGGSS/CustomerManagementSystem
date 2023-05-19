@@ -2,9 +2,12 @@ package com.customer.CustomerManagement.controller;
 
 import com.customer.CustomerManagement.dto.CustomerDTO;
 import com.customer.CustomerManagement.dto.request.ItemSaveRequestDTO;
+import com.customer.CustomerManagement.dto.response.ItemGetResponseDTO;
 import com.customer.CustomerManagement.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/item")
@@ -22,4 +25,12 @@ public class ItemController
 
         return "Saved";
     }
+
+    @GetMapping(path = "/getItemByNameAndStatus", params="name")
+    public List<ItemGetResponseDTO> getItemByNameAndStatus(@RequestParam(value = "name") String itemName)
+    {
+        List<ItemGetResponseDTO> itemGetResponseDTOS = itemService.getItemByNameAndStatus(itemName);
+        return itemGetResponseDTOS;
+    }
+
 }
