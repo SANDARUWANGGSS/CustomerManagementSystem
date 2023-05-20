@@ -85,4 +85,12 @@ public class ItemServiceImpl implements ItemService
             throw new RuntimeException("Item is not active");
         }
     }
+
+    @Override
+    public List<ItemGetResponseDTO> getAllItems()
+    {
+        List<Item> allItemsDB = itemRepo.findAll();
+        List<ItemGetResponseDTO> allItems = itemMapper.entityListToItemList(allItemsDB);
+        return allItems;
+    }
 }

@@ -10,4 +10,7 @@ import java.util.List;
 public interface ItemMapper
 {
     List<ItemGetResponseDTO> entityListToDTOList(List<Item> items);
+
+
+    List<ItemGetResponseDTO> entityListToItemList(List<Item> allItemsDB);
 }
