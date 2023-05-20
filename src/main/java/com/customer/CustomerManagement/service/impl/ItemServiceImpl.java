@@ -3,6 +3,7 @@ package com.customer.CustomerManagement.service.impl;
 import com.customer.CustomerManagement.dto.request.ItemSaveRequestDTO;
 import com.customer.CustomerManagement.dto.response.ItemGetResponseDTO;
 import com.customer.CustomerManagement.entity.Item;
+import com.customer.CustomerManagement.exception.NotFoundException;
 import com.customer.CustomerManagement.repo.ItemRepo;
 import com.customer.CustomerManagement.service.ItemService;
 import com.customer.CustomerManagement.util.mappers.ItemMapper;
@@ -90,7 +91,13 @@ public class ItemServiceImpl implements ItemService
     public List<ItemGetResponseDTO> getAllItems()
     {
         List<Item> allItemsDB = itemRepo.findAll();
-        List<ItemGetResponseDTO> allItems = itemMapper.entityListToItemList(allItemsDB);
-        return allItems;
+        if (allItemsDB.size()>0) {
+            List<ItemGetResponseDTO> allItems = itemMapper.entityListToItemList(allItemsDB);
+            return allItems;
+        }
+        else
+        {
+            throw new NotFoundException("No Items Found");
+        }
     }
 }
