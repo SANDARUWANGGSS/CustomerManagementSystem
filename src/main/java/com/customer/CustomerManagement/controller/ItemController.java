@@ -54,7 +54,7 @@ public class ItemController
         return itemDTOS;
     }
 
-    @GetMapping("/getAllCustomers")
+    @GetMapping("/getAllItems")
     public ResponseEntity<StandardResponse> getAllItems()
     {
         List<ItemGetResponseDTO> allItems = itemService.getAllItems();
