@@ -100,4 +100,17 @@ public class ItemServiceImpl implements ItemService
             throw new NotFoundException("No Items Found");
         }
     }
+
+    @Override
+    public List<ItemGetResponseDTO> getItemByActiveStatus(boolean activeStatus) {
+        List<Item> allItemsDB = itemRepo.findAllByActiveStatusEquals(activeStatus);
+        if (allItemsDB.size()>0) {
+            List<ItemGetResponseDTO> allItems = itemMapper.entityListToItemList(allItemsDB);
+            return allItems;
+        }
+        else
+        {
+            throw new NotFoundException("No Items Found");
+        }
+    }
 }

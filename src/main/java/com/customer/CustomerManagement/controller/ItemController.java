@@ -63,4 +63,13 @@ public class ItemController
         );
     }
 
+    @GetMapping(path = "/getByNameWithPagination",params = "activeStatus")
+    public ResponseEntity<StandardResponse> getItemByActiveStatus(@RequestParam(value = "activeStatus") boolean activeStatus)
+    {
+        List<ItemGetResponseDTO> itemsByActiveStatus = itemService.getItemByActiveStatus(activeStatus);
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(200,"Successfully get all items",itemsByActiveStatus),HttpStatus.OK
+        );
+    }
+
 }
