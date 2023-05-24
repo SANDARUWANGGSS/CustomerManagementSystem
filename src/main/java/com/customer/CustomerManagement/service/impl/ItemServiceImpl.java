@@ -45,6 +45,11 @@ public class ItemServiceImpl implements ItemService
 //        itemRepo.save(item);
 //        return item.getItemName();
         Item item = modelMapper.map(itemSaveRequestDTO,Item.class);
+        if (!item.getMeasuringUnitType().equals("KILO_GRAM") || !item.getMeasuringUnitType().equals("GRAM") || !item.getMeasuringUnitType().equals("LITER")
+                || !item.getMeasuringUnitType().equals("MILLI_LITER") || !item.getMeasuringUnitType().equals("NUMBER")  )
+        {
+            throw new NotFoundException("Units Not Match");
+        }
         if(!itemRepo.existsById(item.getItemId()))
         {
             itemRepo.save(item);
@@ -120,12 +125,13 @@ public class ItemServiceImpl implements ItemService
     @Override
     public PaginatedResponseItemDTO getItemByActiveStatusWithPaginated(boolean activeStatus, int page, int size) {
         Page<Item> items = itemRepo.findAllByActiveStatusEquals(activeStatus, PageRequest.of(page,size));
+        int count = itemRepo.countAllByActiveStatusEquals(activeStatus);
         if(items.getSize()<1)
         {
             throw new NotFoundException("No Data found");
         }
         PaginatedResponseItemDTO paginatedResponseItemDTO = new PaginatedResponseItemDTO(
-            itemMapper.ListDTOtoPage(items),2
+            itemMapper.ListDTOtoPage(items),count
         );
         return paginatedResponseItemDTO;
     }
