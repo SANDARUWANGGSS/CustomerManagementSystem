@@ -1,6 +1,7 @@
 package com.customer.CustomerManagement.controller;
 
 import com.customer.CustomerManagement.dto.CustomerDTO;
+import com.customer.CustomerManagement.dto.Paginated.PaginatedResponseItemDTO;
 import com.customer.CustomerManagement.dto.request.ItemSaveRequestDTO;
 import com.customer.CustomerManagement.dto.response.ItemGetResponseDTO;
 import com.customer.CustomerManagement.service.ItemService;
@@ -10,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.Max;
 import java.util.List;
 
 @RestController
@@ -67,12 +69,13 @@ public class ItemController
     public ResponseEntity<StandardResponse> getItemByActiveStatus(
             @RequestParam(value = "activeStatus") boolean activeStatus,
             @RequestParam(value = "page") int page,
-            @RequestParam(value = "size") int size
+            @RequestParam(value = "size") @Max(50) int size
     )
     {
-        List<ItemGetResponseDTO> itemsByActiveStatus = itemService.getItemByActiveStatus(activeStatus);
+        PaginatedResponseItemDTO paginatedResponseItemDTO = itemService.getItemByActiveStatusWithPaginated(activeStatus,page,size);
         return new ResponseEntity<StandardResponse>(
-                new StandardResponse(200,"Successfully get all items",itemsByActiveStatus),HttpStatus.OK
+                new StandardResponse(200,"Successfully get all items",paginatedResponseItemDTO),
+                HttpStatus.OK
         );
     }
 

@@ -1,5 +1,6 @@
 package com.customer.CustomerManagement.service.impl;
 
+import com.customer.CustomerManagement.dto.Paginated.PaginatedResponseItemDTO;
 import com.customer.CustomerManagement.dto.request.ItemSaveRequestDTO;
 import com.customer.CustomerManagement.dto.response.ItemGetResponseDTO;
 import com.customer.CustomerManagement.entity.Item;
@@ -11,6 +12,8 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -112,5 +115,18 @@ public class ItemServiceImpl implements ItemService
         {
             throw new NotFoundException("No Items Found");
         }
+    }
+
+    @Override
+    public PaginatedResponseItemDTO getItemByActiveStatusWithPaginated(boolean activeStatus, int page, int size) {
+        Page<Item> items = itemRepo.findAllByActiveStatusEquals(activeStatus, PageRequest.of(page,size));
+        if(items.getSize()<1)
+        {
+            throw new NotFoundException("No Data found");
+        }
+        PaginatedResponseItemDTO paginatedResponseItemDTO = new PaginatedResponseItemDTO(
+            itemMapper.ListDTOtoPage(items),2
+        );
+        return paginatedResponseItemDTO;
     }
 }

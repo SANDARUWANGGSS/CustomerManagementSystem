@@ -1,6 +1,8 @@
 package com.customer.CustomerManagement.repo;
 
 import com.customer.CustomerManagement.entity.Item;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Repository;
@@ -15,4 +17,6 @@ public interface ItemRepo extends JpaRepository<Item,Integer>
     List<Item> findAllByItemNameEqualsAndActiveStatusEquals(String itemName, boolean b);
 
     List<Item> findAllByActiveStatusEquals(boolean activeStatus);
+
+    Page<Item> findAllByActiveStatusEquals(boolean activeStatus, Pageable pageable);
 }
