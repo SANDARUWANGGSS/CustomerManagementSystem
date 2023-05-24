@@ -14,7 +14,7 @@ public class AppWideExceptionHandler
     public ResponseEntity<StandardResponse> handleNotFoundException(NotFoundException e)
     {
         return new ResponseEntity<StandardResponse>(
-                new StandardResponse(404,"Items Not Found ",e.getMessage()+"Sandaruwan"), HttpStatus.NOT_FOUND
+                new StandardResponse(404,"Items Not Found ",e.getMessage()+" Sandaruwan"), HttpStatus.NOT_FOUND
         );
     }
 }

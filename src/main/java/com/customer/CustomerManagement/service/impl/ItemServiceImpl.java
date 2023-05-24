@@ -45,11 +45,13 @@ public class ItemServiceImpl implements ItemService
 //        itemRepo.save(item);
 //        return item.getItemName();
         Item item = modelMapper.map(itemSaveRequestDTO,Item.class);
-        if (!item.getMeasuringUnitType().equals("KILO_GRAM") || !item.getMeasuringUnitType().equals("GRAM") || !item.getMeasuringUnitType().equals("LITER")
-                || !item.getMeasuringUnitType().equals("MILLI_LITER") || !item.getMeasuringUnitType().equals("NUMBER")  )
-        {
-            throw new NotFoundException("Units Not Match");
-        }
+
+//        if (!item.getMeasuringUnitType().equals("KILO_GRAM") || !item.getMeasuringUnitType().equals("GRAM") || !item.getMeasuringUnitType().equals("LITER")
+//                || !item.getMeasuringUnitType().equals("MILLI_LITER") || !item.getMeasuringUnitType().equals("NUMBER")  )
+//        {
+//            throw new NotFoundException("Units Not Match");
+//        }
+
         if(!itemRepo.existsById(item.getItemId()))
         {
             itemRepo.save(item);
