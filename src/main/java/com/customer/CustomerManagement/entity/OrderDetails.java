@@ -1,4 +1,5 @@
 package com.customer.CustomerManagement.entity;
+
 import com.vladmihalcea.hibernate.type.json.JsonType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +8,6 @@ import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(name = "orders")
@@ -17,17 +17,20 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Order
+public class OrderDetails
 {
     @Id
-    @Column(name = "order_id", length = 45)
+    @Column(name = "order_details_id", length = 45)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int orderId;
+    private int orderDetailsId;
 
-    @Column(name = "order_date", columnDefinition = "DATETIME")
-    private Date date;
+    @Column(name = "item_name", length = 100, nullable = false)
+    private String itemName;
 
-    @ManyToOne
-    @JoinColumn(name="customer_id", nullable=false)
-    private Customer customer;
+    @Column(name = "qty", length = 100, nullable = false)
+    private double qty;
+
+    @Column(name = "amount", nullable = false)
+    private double amount;
+
 }
