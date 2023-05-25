@@ -18,6 +18,5 @@ public class RequestOrderDetailsDTO
     private String itemName;
     private double qty;
     private double amount;
-    private int orders;
     private int items;
 }
