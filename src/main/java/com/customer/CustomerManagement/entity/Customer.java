@@ -1,6 +1,7 @@
 package com.customer.CustomerManagement.entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "customer")
@@ -25,6 +26,9 @@ public class Customer
 
     @Column(name = "active_status", columnDefinition = "TINYINT default 0")
     private boolean activeStatus;
+
+    @OneToMany(mappedBy="customer")
+    private Set<Order> orders;
 
     public Customer() {
 
