@@ -10,7 +10,7 @@ import org.hibernate.annotations.TypeDefs;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "orders")
+@Table(name = "order_details")
 @TypeDefs(
         {@TypeDef(name = "json",typeClass = JsonType.class)}
 )
@@ -33,4 +33,11 @@ public class OrderDetails
     @Column(name = "amount", nullable = false)
     private double amount;
 
+    @ManyToOne
+    @JoinColumn(name="order_id", nullable=false)
+    private Order orders;
+
+    @ManyToOne
+    @JoinColumn(name="item_id", nullable=false)
+    private Item items;
 }

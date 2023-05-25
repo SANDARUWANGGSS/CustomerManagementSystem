@@ -8,6 +8,7 @@ import org.hibernate.annotations.TypeDefs;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "orders")
@@ -30,4 +31,7 @@ public class Order
     @ManyToOne
     @JoinColumn(name="customer_id", nullable=false)
     private Customer customer;
+
+    @OneToMany(mappedBy="orders")
+    private Set<OrderDetails> orderDetails;
 }
