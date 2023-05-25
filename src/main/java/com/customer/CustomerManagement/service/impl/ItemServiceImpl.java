@@ -124,12 +124,6 @@ public class ItemServiceImpl implements ItemService
         }
     }
 
-    public int countAllItems()
-    {
-        int countItems = itemRepo.countAllByActiveStatusEquals(true);
-        return countItems;
-    }
-
     @Override
     public PaginatedResponseItemDTO getItemByActiveStatusWithPaginated(boolean activeStatus, int page, int size) {
         Page<Item> items = itemRepo.findAllByActiveStatusEquals(activeStatus, PageRequest.of(page,size));
@@ -142,6 +136,12 @@ public class ItemServiceImpl implements ItemService
             itemMapper.ListDTOtoPage(items),count
         );
         return paginatedResponseItemDTO;
+    }
+
+    public int countAllItems()
+    {
+        int countItems = itemRepo.countAllByActiveStatusEquals(true);
+        return countItems;
     }
 
     @Override
