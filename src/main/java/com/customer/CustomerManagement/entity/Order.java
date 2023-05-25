@@ -28,10 +28,15 @@ public class Order
     @Column(name = "order_date", columnDefinition = "DATETIME")
     private Date date;
 
+    @Column(name = "total", nullable = false)
+    private Double total;
+
     @ManyToOne
     @JoinColumn(name="customer_id", nullable=false)
     private Customer customer;
 
     @OneToMany(mappedBy="orders")
     private Set<OrderDetails> orderDetails;
+
+
 }
