@@ -124,6 +124,12 @@ public class ItemServiceImpl implements ItemService
         }
     }
 
+    public int countAllItems()
+    {
+        int countItems = itemRepo.countAllByActiveStatusEquals(true);
+        return countItems;
+    }
+
     @Override
     public PaginatedResponseItemDTO getItemByActiveStatusWithPaginated(boolean activeStatus, int page, int size) {
         Page<Item> items = itemRepo.findAllByActiveStatusEquals(activeStatus, PageRequest.of(page,size));
@@ -134,6 +140,20 @@ public class ItemServiceImpl implements ItemService
         }
         PaginatedResponseItemDTO paginatedResponseItemDTO = new PaginatedResponseItemDTO(
             itemMapper.ListDTOtoPage(items),count
+        );
+        return paginatedResponseItemDTO;
+    }
+
+    @Override
+    public PaginatedResponseItemDTO getAllItemsPaginated(int page, int size) {
+        Page<Item> items = itemRepo.findAll(PageRequest.of(page,size));
+        int count = countAllItems();
+        if(items.getSize()<1)
+        {
+            throw new NotFoundException("No Data found");
+        }
+        PaginatedResponseItemDTO paginatedResponseItemDTO = new PaginatedResponseItemDTO(
+                itemMapper.ListDTOtoPage(items),count
         );
         return paginatedResponseItemDTO;
     }
