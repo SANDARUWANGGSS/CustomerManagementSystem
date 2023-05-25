@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -21,5 +22,5 @@ public class RequestOrderSaveDTO
     private int customer;
     private Date date;
     private Double total;
-    private Set<OrderDetails> orderDetails;
+    private List<RequestOrderDetailsDTO> orderDetails;
 }
