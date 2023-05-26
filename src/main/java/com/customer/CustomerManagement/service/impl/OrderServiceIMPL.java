@@ -4,6 +4,7 @@ import com.customer.CustomerManagement.dto.request.RequestOrderSaveDTO;
 import com.customer.CustomerManagement.entity.Order;
 import com.customer.CustomerManagement.entity.OrderDetails;
 import com.customer.CustomerManagement.repo.CustomerRepo;
+import com.customer.CustomerManagement.repo.ItemRepo;
 import com.customer.CustomerManagement.repo.OrderDetailsRepo;
 import com.customer.CustomerManagement.repo.OrderRepo;
 import com.customer.CustomerManagement.service.OrderService;
@@ -29,6 +30,9 @@ public class OrderServiceIMPL implements OrderService
     private CustomerRepo customerRepo;
 
     @Autowired
+    private ItemRepo itemRepo;
+
+    @Autowired
     private OrderDetailsRepo orderDetailsRepo;
 
     @Override
@@ -51,6 +55,7 @@ public class OrderServiceIMPL implements OrderService
             for (int i = 0;i<orderDetails.size();i++)
             {
                 orderDetails.get(i).setOrders(order);
+                orderDetails.get(i).setItems(itemRepo.getById(requestOrderSaveDTO.getOrderDetails().get(i).getItems()));
             }
             if(orderDetails.size()>0)
             {
